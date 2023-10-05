@@ -3,6 +3,7 @@ services:
     build:
       context: ./backend/
       dockerfile: Dockerfile
+    tty: true
     ports:
       - 8080:8080
     volumes:
@@ -15,6 +16,7 @@ services:
     build:
       context: ./frontend/
       dockerfile: Dockerfile
+    tty: true
     volumes:
       - ./frontend:/app
     env_file:
@@ -30,6 +32,5 @@ services:
       - POSTGRES_DB=db
     volumes:
       - db-store:/var/lib/postgresql/data
-
 volumes:
   db-store:

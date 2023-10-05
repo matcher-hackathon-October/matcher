@@ -1,0 +1,26 @@
+# General
+node_modules/
+*.log
+*.env
+
+# Backend (Go)
+backend/bin/
+backend/pkg/
+
+# Frontend (Next.js)
+frontend/.next/
+frontend/out/
+frontend/node_modules
+frontend/.pnp
+frontend/.pnp.js
+frontend/coverage
+frontend/build
+frontend/.DS_Store
+frontend/*.pem
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.env*.local
+frontend/.vercel
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts

@@ -18,8 +18,8 @@ export default function Header() {
 
   return (
     <div
-      className={`header fixed top-0 w-full p-4 flex justify-between items-center shadow-md z-10 transition-transform duration-300 ${
-        scrolled ? "transform scale-0.95" : ""
+      className={`header fixed top-0 w-full flex justify-between items-center shadow-md z-10 transition-all p-5 duration-300 bg-white ${
+        scrolled ? "h-10" : "h-20"
       }`}
     >
       <div className="header__logo">

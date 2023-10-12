@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Loading from "../loading";
 
 type Event = {
   event_title: string;
@@ -20,7 +21,7 @@ export default function ConfirmationPage() {
     }
   }, []);
 
-  if (!eventData) return <div>Loading...</div>;
+  if (!eventData) return <Loading className="fixed inset-0 z-50" />;
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">

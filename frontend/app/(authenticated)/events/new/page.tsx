@@ -1,7 +1,8 @@
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import CheckBoxGroup from "@/components/form/checkBoxGroup";
 
 type Event = {
   event_title: string;
@@ -12,75 +13,8 @@ type Event = {
   event_description: string;
 };
 
-const tags = [
-  { id: 1, name: "React" },
-  { id: 2, name: "Vue" },
-  {
-    id: 3,
-    name: "Angular",
-  },
-];
-
-const languages = [
-  { id: 1, name: "日本語" },
-  { id: 2, name: "English" },
-];
-
-type CheckBoxGroupProps = {
-  items: { id: number; name: string }[];
-  itemColor?: string;
-  selectedItems: number[];
-  onChange: (items: number[]) => void;
-  label: string;
-  className?: string;
-};
-
-function CheckBoxGroup({
-  items,
-  itemColor = "bg-indigo-500",
-  selectedItems,
-  onChange,
-  label,
-  className,
-}: CheckBoxGroupProps) {
-  return (
-    <div className={className}>
-      <label className="mb-2 inline-block text-sm text-gray-800 sm:text-base">
-        {label}
-      </label>
-      <div className="flex flex-wrap gap-2">
-        {items.map((item) => (
-          <label key={item.id} className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              value={item.id}
-              checked={selectedItems.includes(item.id)}
-              onChange={() => {
-                if (selectedItems.includes(item.id)) {
-                  onChange(selectedItems.filter((id) => id !== item.id));
-                } else {
-                  onChange([...selectedItems, item.id]);
-                }
-              }}
-            />
-            <span
-              className={[
-                selectedItems.includes(item.id)
-                  ? [itemColor, "text-white"].join(" ")
-                  : ["bg-gray-50", "text-gray-500"].join(" "),
-                "text-gray-800 px-4 py-2 rounded-lg text-sm font-medium outline-none border-2 border-transparent transition duration-300",
-              ].join(" ")}
-            >
-              {item.name}
-            </span>
-          </label>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function CreateNewEventPage() {
+  console.log("CreateNewEventPage");
   const router = useRouter();
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [selectedLanguages, setSelectedLanguages] = useState<number[]>([]);
@@ -160,21 +94,21 @@ export default function CreateNewEventPage() {
           </div>
 
           <CheckBoxGroup
-            items={languages}
+            apiendpoint="/languages"
             itemColor="bg-green-500"
             selectedItems={selectedLanguages}
             onChange={setSelectedLanguages}
             label="言語"
-            className="sm:col-span-2"
+            className="sm:col-span-2 relative"
           />
 
           <CheckBoxGroup
-            items={tags}
+            apiendpoint="/tags"
             itemColor="bg-orange-500"
             selectedItems={selectedTags}
             onChange={setSelectedTags}
             label="タグ"
-            className="sm:col-span-2"
+            className="sm:col-span-2 relative"
           />
 
           <div className="sm:col-span-2">

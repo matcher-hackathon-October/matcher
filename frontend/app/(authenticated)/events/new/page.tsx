@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import CheckBoxGroup from "@/components/form/checkBoxGroup";
+import Loading from "../../loading";
 
 type Event = {
   event_title: string;
@@ -16,6 +17,8 @@ type Event = {
 export default function CreateNewEventPage() {
   console.log("CreateNewEventPage");
   const router = useRouter();
+  const [tags, setTags] = useState([]);
+  const [languages, setLanguages] = useState([]);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [selectedLanguages, setSelectedLanguages] = useState<number[]>([]);
   const {
@@ -40,6 +43,24 @@ export default function CreateNewEventPage() {
     }
   }, [setValue]);
 
+  useEffect(() => {
+    const fetchTags = fetch(`${process.env.NEXT_PUBLIC_API_URL}/tags`);
+    const fetchLanguages = fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/languages`
+    );
+    Promise.all([fetchTags, fetchLanguages]).then(
+      ([tags_res, languages_res]) => {
+        tags_res.json().then((data) => {
+          setTags(data.tags);
+        });
+        languages_res.json().then((data) => {
+          setLanguages(data.languages);
+        });
+      }
+    );
+  }, []);
+
+  if (!tags.length || !languages.length) return <Loading />;
   const onSubmit: SubmitHandler<Event> = (data) => {
     data.tags = selectedTags || [];
     data.languages = selectedLanguages || [];
@@ -94,7 +115,7 @@ export default function CreateNewEventPage() {
           </div>
 
           <CheckBoxGroup
-            apiendpoint="/languages"
+            items={languages}
             itemColor="bg-green-500"
             selectedItems={selectedLanguages}
             onChange={setSelectedLanguages}
@@ -103,7 +124,7 @@ export default function CreateNewEventPage() {
           />
 
           <CheckBoxGroup
-            apiendpoint="/tags"
+            items={tags}
             itemColor="bg-orange-500"
             selectedItems={selectedTags}
             onChange={setSelectedTags}

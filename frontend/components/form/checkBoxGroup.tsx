@@ -1,8 +1,5 @@
-import Loading from "@/app/(authenticated)/loading";
-import { Suspense } from "react";
-
 type CheckBoxGroupProps = {
-  apiendpoint: string;
+  items: Array<{ id: number; name: string }>;
   itemColor?: string;
   selectedItems: number[];
   onChange: (items: number[]) => void;
@@ -11,27 +8,18 @@ type CheckBoxGroupProps = {
 };
 
 type CheckBoxItemsProps = {
-  apiendpoint: string;
+  items: Array<{ id: number; name: string }>;
   selectedItems: number[];
   onChange: (items: number[]) => void;
   itemColor?: string;
 };
 
-async function getItems(apiendpoint: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${apiendpoint}`);
-  const json = await res.json();
-  return json[apiendpoint.split("/").pop() as string];
-}
-
-async function CheckBoxItems({
-  apiendpoint,
+function CheckBoxItems({
+  items,
   selectedItems,
   onChange,
   itemColor = "bg-indigo-500",
 }: CheckBoxItemsProps) {
-  const items: Array<{ id: number; name: string }> = await getItems(
-    apiendpoint
-  );
   return (
     <div className="flex flex-wrap gap-2">
       {items.map((item) => (
@@ -65,7 +53,7 @@ async function CheckBoxItems({
 }
 
 export default function CheckBoxGroup({
-  apiendpoint,
+  items,
   itemColor = "bg-indigo-500",
   selectedItems,
   onChange,
@@ -77,15 +65,7 @@ export default function CheckBoxGroup({
       <label className="mb-2 inline-block text-sm text-gray-800 sm:text-base">
         {label}
       </label>
-      <Suspense
-        fallback={
-          <Loading className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-        }
-      >
-        <CheckBoxItems
-          {...{ apiendpoint, itemColor, selectedItems, onChange }}
-        />
-      </Suspense>
+      <CheckBoxItems {...{ items, itemColor, selectedItems, onChange }} />
     </div>
   );
 }

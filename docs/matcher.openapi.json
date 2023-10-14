@@ -1,0 +1,1983 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "matcher",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "userエンドポイント"
+    },
+    {
+      "name": "eventエンドポイント"
+    },
+    {
+      "name": "notificationのエンドポイント"
+    },
+    {
+      "name": "notification_typeのエンドポイント"
+    },
+    {
+      "name": "languageのエンドポイント"
+    },
+    {
+      "name": "tagのエンドポイント"
+    },
+    {
+      "name": "categoryのエンドポイント"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "全てのユーザーを取得する",
+        "x-apidog-folder": "userエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "全てのユーザーとそのプロフィールを取得する。",
+        "tags": [
+          "userエンドポイント"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "x-apidog-refs": {
+                          "01HCAB3A5EWTAZRWD9DA1DRPXW": {
+                            "x-apidog-overrides": {
+                              "email": null,
+                              "password_hash": null,
+                              "event_id": null,
+                              "profile": null
+                            },
+                            "type": "object",
+                            "properties": {}
+                          }
+                        },
+                        "x-apidog-orders": [
+                          "01HCAB3A5EWTAZRWD9DA1DRPXW"
+                        ],
+                        "properties": {
+                          "user_id": {
+                            "type": "integer",
+                            "description": "ユーザーid",
+                            "format": "int64",
+                            "minimum": 1
+                          },
+                          "email": {
+                            "type": "string",
+                            "format": "email",
+                            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                            "description": "user email"
+                          },
+                          "event_id": {
+                            "type": "string",
+                            "description": "foreign key"
+                          },
+                          "profile": {
+                            "$ref": "#/components/schemas/UserProfile"
+                          }
+                        },
+                        "required": [
+                          "user_id",
+                          "email",
+                          "profile"
+                        ],
+                        "x-apidog-ignore-properties": [
+                          "user_id",
+                          "email",
+                          "event_id",
+                          "profile"
+                        ]
+                      }
+                    }
+                  },
+                  "x-apidog-orders": [
+                    "users"
+                  ],
+                  "x-apidog-refs": {},
+                  "required": [
+                    "users"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功例",
+                    "value": {
+                      "users": [
+                        {
+                          "user_id": 51580189,
+                          "email": "sp@k.UCIUvOItfrvw",
+                          "profile": {
+                            "user_profile_id": 42665269,
+                            "name": "はんそう 日欧 あっとうする",
+                            "major": "dolore nisi veniam minim laboris",
+                            "year": -68027446,
+                            "school_name": "この頃 退く ごうけん",
+                            "introduce_text": "esse id dolore elit",
+                            "student_type": "quis eiusmod velit enim sint",
+                            "profile_icon_url": "https://emotional-jelly.biz"
+                          },
+                          "event_id": "aliqua officia mollit nulla dolor"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4383274-run"
+      },
+      "post": {
+        "summary": "新しいuserを作成する",
+        "x-apidog-folder": "userエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "userエンドポイント"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer",
+                    "description": "ユーザーid",
+                    "format": "int64",
+                    "minimum": 1
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                    "description": "user email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "minLength": 6
+                  },
+                  "password_confirmation": {
+                    "type": "string",
+                    "format": "password",
+                    "minLength": 6
+                  },
+                  "event_id": {
+                    "type": "string",
+                    "description": "foreign key"
+                  },
+                  "profile": {
+                    "$ref": "#/components/schemas/UserProfile"
+                  }
+                },
+                "x-apidog-orders": [
+                  "user_id",
+                  "email",
+                  "password",
+                  "password_confirmation",
+                  "event_id",
+                  "profile"
+                ],
+                "x-apidog-refs": {},
+                "required": [
+                  "user_id",
+                  "email",
+                  "profile",
+                  "password_confirmation",
+                  "password"
+                ],
+                "x-apidog-ignore-properties": []
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-orders": [],
+                  "x-apidog-refs": {},
+                  "x-apidog-ignore-properties": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4383865-run"
+      }
+    },
+    "/event/{eventId}": {
+      "get": {
+        "summary": "イベントの詳細をクエリ",
+        "x-apidog-folder": "eventエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "eventエンドポイント"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 0
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Event"
+                    }
+                  },
+                  "x-apidog-orders": [
+                    "code",
+                    "data"
+                  ],
+                  "required": [
+                    "code",
+                    "data"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "event_id": 2010550,
+                        "event_image": "https://loremflickr.com/640/480/business",
+                        "event_title": "当て字 窓 あれる",
+                        "event_description": "よくげつ 提案する 右翼 重い しゅしょう ごうけん あくれい 屈む 不可欠. 悲しみ ぶき 特殊 かんぜん 乗せる 大丈夫 高値. ひきざん ハチのす 桜色 俵 牛乳 むらさきいろ.",
+                        "max_participants": 5,
+                        "venue": "in eiusmod aliqua ipsum",
+                        "address": "consectetur esse consequat mollit",
+                        "event_datetime": "2023-10-09T00:17:12.660Z",
+                        "is_online": false,
+                        "language": {
+                          "language_id": -17449434
+                        },
+                        "tag": {
+                          "tag_id": 30639833
+                        },
+                        "category": {
+                          "category_id": 43556874,
+                          "category_text": "name.firstName"
+                        },
+                        "user": {
+                          "user_id": 49676423
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4383367-run"
+      },
+      "delete": {
+        "summary": "イベントを削除",
+        "x-apidog-folder": "eventエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "eventエンドポイント"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4402639-run"
+      }
+    },
+    "/users/{:user_id}": {
+      "get": {
+        "summary": "特定のユーザーの名前およびプロフィールを取得",
+        "x-apidog-folder": "userエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "userエンドポイント"
+        ],
+        "parameters": [
+          {
+            "name": ":user_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user_id": {
+                      "type": "integer",
+                      "description": "ユーザーid",
+                      "format": "int64",
+                      "minimum": 1
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email",
+                      "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                      "description": "user email"
+                    },
+                    "event_id": {
+                      "type": "string",
+                      "description": "foreign key"
+                    },
+                    "profile": {
+                      "$ref": "#/components/schemas/UserProfile"
+                    }
+                  },
+                  "x-apidog-orders": [
+                    "01HCAB7NZGZEP2H26QZMD9ZXT8"
+                  ],
+                  "required": [
+                    "user_id",
+                    "email",
+                    "profile"
+                  ],
+                  "x-apidog-refs": {
+                    "01HCAB7NZGZEP2H26QZMD9ZXT8": {
+                      "x-apidog-overrides": {
+                        "email": null,
+                        "password_hash": null,
+                        "event_id": null,
+                        "profile": null
+                      },
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-apidog-ignore-properties": [
+                    "user_id",
+                    "email",
+                    "event_id",
+                    "profile"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功例",
+                    "value": {
+                      "user_id": 66850841,
+                      "email": "poU@HAc.pxua",
+                      "event_id": "est adipisicing nisi fugiat ullamco",
+                      "profile": {
+                        "user_profile_id": -45624428,
+                        "name": "つぎつぎ かんじる 喜劇",
+                        "profile_icon_url": "https://fast-rim.name",
+                        "student_type": "ad nostrud labore sed mollit",
+                        "introduce_text": "qui deserunt",
+                        "major": "ullamco cillum pariatur",
+                        "year": 8900225,
+                        "school_name": "ゆるむ きょうふ 電話"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "レコードが存在しない",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "x-apidog-orders": [
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4383804-run"
+      }
+    },
+    "/user/{user_id}": {
+      "put": {
+        "summary": "ユーザーの情報を更新する",
+        "x-apidog-folder": "userエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "特定のユーザー情報を更新する",
+        "tags": [
+          "userエンドポイント"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer",
+                    "description": "ユーザーid",
+                    "format": "int64",
+                    "minimum": 1
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                    "description": "user email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "minLength": 6,
+                    "description": "パスワード"
+                  },
+                  "password_confirmation": {
+                    "type": "string",
+                    "format": "password",
+                    "minLength": 6,
+                    "description": "パスワード確認用"
+                  },
+                  "event_id": {
+                    "type": "string",
+                    "description": "foreign key"
+                  },
+                  "profile": {
+                    "$ref": "#/components/schemas/UserProfile"
+                  }
+                },
+                "x-apidog-orders": [
+                  "user_id",
+                  "email",
+                  "password",
+                  "password_confirmation",
+                  "event_id",
+                  "profile"
+                ],
+                "required": [
+                  "user_id",
+                  "email",
+                  "profile",
+                  "password_confirmation",
+                  "password"
+                ],
+                "x-apidog-refs": {},
+                "x-apidog-ignore-properties": []
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "パラメータが正しくありません",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "x-apidog-orders": [
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4383931-run"
+      }
+    },
+    "/users/{user_id}/events": {
+      "get": {
+        "summary": "ユーザーが参加しているevent情報を全て取得する",
+        "x-apidog-folder": "userエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "userエンドポイント"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "events": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "x-apidog-refs": {},
+                        "x-apidog-orders": [
+                          "event_id",
+                          "partipant_users",
+                          "language",
+                          "tag",
+                          "category",
+                          "event_image",
+                          "event_title",
+                          "event_description",
+                          "max_participants",
+                          "venue",
+                          "address",
+                          "event_datetime",
+                          "is_online"
+                        ],
+                        "properties": {
+                          "event_id": {
+                            "type": "integer",
+                            "format": "int64",
+                            "minimum": 1,
+                            "description": "イベントのid"
+                          },
+                          "partipant_users": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "x-apidog-refs": {},
+                              "x-apidog-orders": [
+                                "user_id",
+                                "email",
+                                "password_hash",
+                                "profile"
+                              ],
+                              "properties": {
+                                "user_id": {
+                                  "type": "integer",
+                                  "description": "ユーザーid",
+                                  "format": "int64",
+                                  "minimum": 1
+                                },
+                                "email": {
+                                  "type": "string",
+                                  "format": "email",
+                                  "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                                  "description": "user email"
+                                },
+                                "password_hash": {
+                                  "type": "string",
+                                  "format": "password",
+                                  "description": "user passwordのハッシュ値"
+                                },
+                                "profile": {
+                                  "$ref": "#/components/schemas/UserProfile"
+                                }
+                              },
+                              "required": [
+                                "user_id",
+                                "email",
+                                "password_hash",
+                                "profile"
+                              ],
+                              "x-apidog-ignore-properties": []
+                            }
+                          },
+                          "language": {
+                            "$ref": "#/components/schemas/Language",
+                            "x-apidog-overrides": {
+                              "language_text": null
+                            }
+                          },
+                          "tag": {
+                            "$ref": "#/components/schemas/Tag",
+                            "x-apidog-overrides": {
+                              "tag_text": null
+                            }
+                          },
+                          "category": {
+                            "$ref": "#/components/schemas/Category",
+                            "x-apidog-overrides": {
+                              "category_text": null
+                            }
+                          },
+                          "event_image": {
+                            "type": "string",
+                            "description": "イベント画像"
+                          },
+                          "event_title": {
+                            "type": "string",
+                            "description": "イベント名"
+                          },
+                          "event_description": {
+                            "type": "string",
+                            "description": "イベントの説明"
+                          },
+                          "max_participants": {
+                            "type": "integer",
+                            "description": "最大参加人数",
+                            "format": "int64"
+                          },
+                          "venue": {
+                            "type": "string",
+                            "description": "開催地"
+                          },
+                          "address": {
+                            "type": "string",
+                            "description": "住所"
+                          },
+                          "event_datetime": {
+                            "type": "string",
+                            "description": "イベントの日程",
+                            "format": "date-time"
+                          },
+                          "is_online": {
+                            "type": "boolean",
+                            "description": "オンライン/オフライン状態"
+                          }
+                        },
+                        "required": [
+                          "event_id",
+                          "event_image",
+                          "event_title",
+                          "event_description",
+                          "max_participants",
+                          "venue",
+                          "address",
+                          "event_datetime",
+                          "is_online",
+                          "language",
+                          "tag",
+                          "category",
+                          "partipant_users"
+                        ],
+                        "x-apidog-ignore-properties": []
+                      }
+                    }
+                  },
+                  "x-apidog-orders": [
+                    "events"
+                  ],
+                  "required": [
+                    "events"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功例",
+                    "value": {
+                      "events": [
+                        {
+                          "event_id": 45970238,
+                          "event_image": "https://loremflickr.com/640/480/business",
+                          "event_title": "こはん 切迫 ほ",
+                          "event_description": "ないしょばなし 絹糸 閉める. 超〜 暴力 しゃこ 先週 核実験 双 れつあく かい 米国 はなはだ. ちかく かい ひきざん うえる 検査 じょうだん こうせい ほ ひがい 右利き. ねばり きょうき ひんきゃく. やさい 自宅 きもち 伝統 ころす.",
+                          "max_participants": 81247547,
+                          "venue": "mollit adipisicing laborum in ad",
+                          "address": "sed qui",
+                          "event_datetime": "2023-10-09T11:09:41.281Z",
+                          "is_online": false,
+                          "language": {
+                            "language_id": -64637620,
+                            "language_text": "in Ut anim eu ut"
+                          },
+                          "tag": {
+                            "tag_id": 18300226,
+                            "tag_text": "name.firstName"
+                          },
+                          "category": {
+                            "category_id": 22732241,
+                            "category_text": "name.firstName"
+                          },
+                          "partipant_users": [
+                            {
+                              "user_id": 60569926,
+                              "email": "F57iGfnL@179eGuG0-e.ZTtd",
+                              "password_hash": "culpa",
+                              "profile": {
+                                "user_profile_id": -98477607,
+                                "name": "こうつう 母 シアトルし",
+                                "profile_icon_url": "http://villainous-knot.info",
+                                "major": "enim do",
+                                "introduce_text": "ad velit officia culpa proident",
+                                "school_name": "たれる けしき しょくん",
+                                "student_type": "pariatur sit",
+                                "year": -44307069
+                              }
+                            },
+                            {
+                              "user_id": 22354812,
+                              "email": "3eT_mrN@mR.xftJxSNY",
+                              "password_hash": "ex est sint sunt",
+                              "profile": {
+                                "user_profile_id": -67042096,
+                                "name": "迷路 かちゅう 鈍器",
+                                "major": "reprehenderit",
+                                "school_name": "ほうせき 旧姓 当て字",
+                                "student_type": "in eiusmod reprehenderit Duis elit",
+                                "introduce_text": "aute",
+                                "profile_icon_url": "http://elaborate-processor.name",
+                                "year": 68774440
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4384083-run"
+      }
+    },
+    "/notificatons/{user_id}": {
+      "get": {
+        "summary": "ユーザーの通知を全て取ってくる",
+        "x-apidog-folder": "notificationのエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "notificationのエンドポイント"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "notifications": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "notification_id": {
+                            "type": "integer",
+                            "description": "通知のid"
+                          },
+                          "notification_type": {
+                            "$ref": "#/components/schemas/NotificationType"
+                          },
+                          "event": {
+                            "$ref": "#/components/schemas/Event"
+                          },
+                          "content": {
+                            "type": "string"
+                          },
+                          "is_read": {
+                            "type": "boolean"
+                          }
+                        },
+                        "x-apidog-refs": {},
+                        "x-apidog-orders": [
+                          "notification_id",
+                          "notification_type",
+                          "event",
+                          "content",
+                          "is_read"
+                        ],
+                        "required": [
+                          "notification_id",
+                          "content",
+                          "is_read",
+                          "notification_type",
+                          "event"
+                        ],
+                        "x-apidog-ignore-properties": []
+                      }
+                    }
+                  },
+                  "x-apidog-orders": [
+                    "notifications"
+                  ],
+                  "required": [
+                    "notifications"
+                  ],
+                  "x-apidog-ignore-properties": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4384461-run"
+      }
+    },
+    "/notifications/{notification_id}": {
+      "patch": {
+        "summary": "通知を更新する",
+        "x-apidog-folder": "notificationのエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "notificationのエンドポイント"
+        ],
+        "parameters": [
+          {
+            "name": "notification_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "is_read": {
+                    "type": "boolean"
+                  }
+                },
+                "x-apidog-orders": [
+                  "is_read"
+                ],
+                "required": [
+                  "is_read"
+                ],
+                "x-apidog-refs": {},
+                "x-apidog-ignore-properties": []
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4384844-run"
+      }
+    },
+    "/notification_types": {
+      "get": {
+        "summary": "すべての通知のタイプを取得",
+        "x-apidog-folder": "notification_typeのエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "notification_typeのエンドポイント"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "notification_types": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "notification_type": {
+                            "type": "string",
+                            "description": "通知のタイプ"
+                          }
+                        },
+                        "x-apidog-refs": {},
+                        "x-apidog-orders": [
+                          "notification_type"
+                        ],
+                        "required": [
+                          "notification_type"
+                        ],
+                        "x-apidog-ignore-properties": []
+                      }
+                    }
+                  },
+                  "x-apidog-orders": [
+                    "notification_types"
+                  ],
+                  "required": [
+                    "notification_types"
+                  ],
+                  "x-apidog-refs": {},
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功例",
+                    "value": {
+                      "notification_types": [
+                        {
+                          "notification_type": "リマインド"
+                        },
+                        {
+                          "notification_type": "運営からのお知らせ"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4384877-run"
+      }
+    },
+    "/languages/{languageId}": {
+      "get": {
+        "summary": "言語の詳細をクエリ",
+        "x-apidog-folder": "languageのエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "languageのエンドポイント"
+        ],
+        "parameters": [
+          {
+            "name": "languageId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 0
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Language",
+                      "x-apidog-overrides": {
+                        "language_text": null
+                      }
+                    }
+                  },
+                  "x-apidog-orders": [
+                    "code",
+                    "data"
+                  ],
+                  "required": [
+                    "code",
+                    "data"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "language_id": 74378885,
+                        "language_text": "English"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4402604-run"
+      }
+    },
+    "/languages": {
+      "get": {
+        "summary": "全ての言語をとってくる",
+        "x-apidog-folder": "languageのエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "languageのエンドポイント"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4402615-run"
+      }
+    },
+    "/events": {
+      "get": {
+        "summary": "全てのイベント情報をクエリ",
+        "x-apidog-folder": "eventエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "eventエンドポイント"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "events": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "event_id": {
+                            "type": "integer",
+                            "format": "int64",
+                            "minimum": 1,
+                            "description": "イベントのid"
+                          },
+                          "users": {
+                            "type": "array",
+                            "items": {
+                              "x-apidog-overrides": {
+                                "email": null,
+                                "password_hash": null,
+                                "event_id": null,
+                                "profile": null
+                              },
+                              "type": "object",
+                              "properties": {}
+                            }
+                          },
+                          "language": {
+                            "type": "object",
+                            "x-apidog-refs": {
+                              "01HCABSHEWN7V6FA9JA4N5Y6M2": {
+                                "$ref": "#/components/schemas/Language",
+                                "x-apidog-overrides": {
+                                  "language_text": null
+                                }
+                              }
+                            },
+                            "x-apidog-orders": [
+                              "01HCABSHEWN7V6FA9JA4N5Y6M2"
+                            ],
+                            "properties": {
+                              "language_id": {
+                                "type": "integer",
+                                "description": "言語ID番号"
+                              }
+                            },
+                            "required": [
+                              "language_id"
+                            ],
+                            "x-apidog-ignore-properties": [
+                              "language_id"
+                            ]
+                          },
+                          "tag": {
+                            "type": "object",
+                            "x-apidog-refs": {
+                              "01HCABSJM9H9XK3KAF089SYWQS": {
+                                "$ref": "#/components/schemas/Tag",
+                                "x-apidog-overrides": {
+                                  "tag_text": null
+                                }
+                              }
+                            },
+                            "x-apidog-orders": [
+                              "01HCABSJM9H9XK3KAF089SYWQS"
+                            ],
+                            "properties": {
+                              "tag_id": {
+                                "type": "integer",
+                                "format": "int64",
+                                "minimum": 1,
+                                "description": "タグID番号"
+                              }
+                            },
+                            "required": [
+                              "tag_id"
+                            ],
+                            "x-apidog-ignore-properties": [
+                              "tag_id"
+                            ]
+                          },
+                          "category": {
+                            "type": "object",
+                            "x-apidog-refs": {
+                              "01HCACE8J4B8WDZTM0V10BQFSM": {
+                                "$ref": "#/components/schemas/Category",
+                                "x-apidog-overrides": {
+                                  "category_text": null
+                                }
+                              }
+                            },
+                            "x-apidog-orders": [
+                              "01HCACE8J4B8WDZTM0V10BQFSM"
+                            ],
+                            "properties": {
+                              "category_id": {
+                                "type": "integer",
+                                "format": "int64",
+                                "minimum": 1,
+                                "description": "カテゴリーID番号"
+                              }
+                            },
+                            "required": [
+                              "category_id"
+                            ],
+                            "x-apidog-ignore-properties": [
+                              "category_id"
+                            ]
+                          },
+                          "event_image": {
+                            "type": "string",
+                            "description": "イベント画像"
+                          },
+                          "event_title": {
+                            "type": "string",
+                            "description": "イベント名"
+                          },
+                          "event_description": {
+                            "type": "string",
+                            "description": "イベントの説明"
+                          },
+                          "max_participants": {
+                            "type": "integer",
+                            "description": "最大参加人数",
+                            "format": "int64"
+                          },
+                          "venue": {
+                            "type": "string",
+                            "description": "開催地"
+                          },
+                          "address": {
+                            "type": "string",
+                            "description": "住所"
+                          },
+                          "event_datetime": {
+                            "type": "string",
+                            "description": "イベントの日程",
+                            "format": "date-time"
+                          },
+                          "is_online": {
+                            "type": "boolean",
+                            "description": "オンライン/オフライン状態"
+                          }
+                        },
+                        "x-apidog-refs": {},
+                        "x-apidog-orders": [
+                          "event_id",
+                          "users",
+                          "language",
+                          "tag",
+                          "category",
+                          "event_image",
+                          "event_title",
+                          "event_description",
+                          "max_participants",
+                          "venue",
+                          "address",
+                          "event_datetime",
+                          "is_online"
+                        ],
+                        "required": [
+                          "event_id",
+                          "event_image",
+                          "event_title",
+                          "event_description",
+                          "max_participants",
+                          "venue",
+                          "address",
+                          "event_datetime",
+                          "is_online",
+                          "language",
+                          "tag",
+                          "category",
+                          "users"
+                        ],
+                        "x-apidog-ignore-properties": []
+                      }
+                    }
+                  },
+                  "x-apidog-orders": [
+                    "events"
+                  ],
+                  "required": [
+                    "events"
+                  ],
+                  "x-apidog-ignore-properties": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4402617-run"
+      },
+      "post": {
+        "summary": "イベントの作成",
+        "x-apidog-folder": "eventエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "eventエンドポイント"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4402623-run"
+      }
+    },
+    "/events/{eventId}": {
+      "put": {
+        "summary": "イベント情報の更新",
+        "x-apidog-folder": "eventエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "eventエンドポイント"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4402651-run"
+      }
+    },
+    "/categories/{categoryId}": {
+      "get": {
+        "summary": "カテゴリーの詳細をクエリ",
+        "x-apidog-folder": "categoryのエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "categoryのエンドポイント"
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4402663-run"
+      }
+    },
+    "/tag/{tagId}": {
+      "get": {
+        "summary": "タグの詳細をクエリ",
+        "x-apidog-folder": "tagのエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "tagのエンドポイント"
+        ],
+        "parameters": [
+          {
+            "name": "tagId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4402670-run"
+      }
+    },
+    "/tags": {
+      "get": {
+        "summary": "全てのタグをとってくる",
+        "x-apidog-folder": "tagのエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "tagのエンドポイント"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4402671-run"
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "全てのカテゴリーをとってくる",
+        "x-apidog-folder": "categoryのエンドポイント",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "categoryのエンドポイント"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/392795/apis/api-4402672-run"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NotificationType": {
+        "type": "object",
+        "properties": {
+          "notification_type_id": {
+            "type": "integer",
+            "description": "通知のタイプのid"
+          },
+          "notification_type": {
+            "type": "string",
+            "description": "通知のタイプ"
+          }
+        },
+        "x-apidog-orders": [
+          "notification_type_id",
+          "notification_type"
+        ],
+        "required": [
+          "notification_type_id",
+          "notification_type"
+        ],
+        "x-apidog-ignore-properties": [],
+        "x-apidog-folder": "データベーススキーマー"
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "category_id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "description": "カテゴリーID番号"
+          },
+          "category_text": {
+            "type": "string",
+            "description": "カテゴリー名"
+          }
+        },
+        "xml": {
+          "name": "Category"
+        },
+        "x-apidog-orders": [
+          "category_id",
+          "category_text"
+        ],
+        "required": [
+          "category_id",
+          "category_text"
+        ],
+        "x-apidog-ignore-properties": [],
+        "x-apidog-folder": "データベーススキーマー"
+      },
+      "Tag": {
+        "type": "object",
+        "properties": {
+          "tag_id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "description": "タグID番号"
+          },
+          "tag_text": {
+            "type": "string",
+            "description": "タグ名"
+          }
+        },
+        "xml": {
+          "name": "Tag"
+        },
+        "x-apidog-orders": [
+          "tag_id",
+          "tag_text"
+        ],
+        "required": [
+          "tag_id",
+          "tag_text"
+        ],
+        "x-apidog-ignore-properties": [],
+        "x-apidog-folder": "データベーススキーマー"
+      },
+      "Language": {
+        "type": "object",
+        "properties": {
+          "language_id": {
+            "type": "integer",
+            "description": "言語ID番号"
+          },
+          "language_text": {
+            "type": "string",
+            "description": "言語名"
+          }
+        },
+        "x-apidog-orders": [
+          "language_id",
+          "language_text"
+        ],
+        "required": [
+          "language_id",
+          "language_text"
+        ],
+        "x-apidog-ignore-properties": [],
+        "x-apidog-folder": "データベーススキーマー"
+      },
+      "UserProfile": {
+        "type": "object",
+        "properties": {
+          "user_profile_id": {
+            "type": "integer",
+            "description": "ユーザープロフィールid"
+          },
+          "name": {
+            "type": "string",
+            "description": "ユーザーの名前"
+          },
+          "profile_icon_url": {
+            "type": "string",
+            "description": "プロフィールアイコンurl"
+          },
+          "school_name": {
+            "type": "string",
+            "description": "学校名"
+          },
+          "major": {
+            "type": "string",
+            "description": "選考"
+          },
+          "student_type": {
+            "type": "string",
+            "description": "学生の種類（学部生、院生など）"
+          },
+          "year": {
+            "type": "integer",
+            "description": "学年"
+          },
+          "introduce_text": {
+            "type": "string",
+            "description": "説明文"
+          }
+        },
+        "x-apidog-orders": [
+          "user_profile_id",
+          "name",
+          "profile_icon_url",
+          "school_name",
+          "major",
+          "student_type",
+          "year",
+          "introduce_text"
+        ],
+        "required": [
+          "user_profile_id",
+          "name"
+        ],
+        "x-apidog-refs": {},
+        "x-apidog-ignore-properties": [],
+        "x-apidog-folder": "データベーススキーマー"
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "description": "イベントのid"
+          },
+          "user": {
+            "type": "object",
+            "x-apidog-refs": {
+              "01HCABS7DGE51KW81T06PW257Q": {
+                "x-apidog-overrides": {
+                  "email": null,
+                  "password_hash": null,
+                  "event_id": null,
+                  "profile": null
+                },
+                "type": "object",
+                "properties": {}
+              }
+            },
+            "x-apidog-orders": [
+              "01HCABS7DGE51KW81T06PW257Q"
+            ],
+            "properties": {
+              "user_id": {
+                "type": "integer",
+                "description": "ユーザーid",
+                "format": "int64",
+                "minimum": 1
+              }
+            },
+            "required": [
+              "user_id"
+            ],
+            "x-apidog-ignore-properties": [
+              "user_id"
+            ]
+          },
+          "language": {
+            "type": "object",
+            "x-apidog-refs": {
+              "01HCABSHEWN7V6FA9JA4N5Y6M2": {
+                "$ref": "#/components/schemas/Language",
+                "x-apidog-overrides": {
+                  "language_text": null
+                }
+              }
+            },
+            "x-apidog-orders": [
+              "01HCABSHEWN7V6FA9JA4N5Y6M2"
+            ],
+            "properties": {
+              "language_id": {
+                "type": "integer",
+                "description": "言語ID番号"
+              }
+            },
+            "required": [
+              "language_id"
+            ],
+            "x-apidog-ignore-properties": [
+              "language_id"
+            ]
+          },
+          "tag": {
+            "type": "object",
+            "x-apidog-refs": {
+              "01HCABSJM9H9XK3KAF089SYWQS": {
+                "$ref": "#/components/schemas/Tag",
+                "x-apidog-overrides": {
+                  "tag_text": null
+                }
+              }
+            },
+            "x-apidog-orders": [
+              "01HCABSJM9H9XK3KAF089SYWQS"
+            ],
+            "properties": {
+              "tag_id": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 1,
+                "description": "タグID番号"
+              }
+            },
+            "required": [
+              "tag_id"
+            ],
+            "x-apidog-ignore-properties": [
+              "tag_id"
+            ]
+          },
+          "category": {
+            "type": "object",
+            "x-apidog-refs": {
+              "01HCACE8J4B8WDZTM0V10BQFSM": {
+                "$ref": "#/components/schemas/Category",
+                "x-apidog-overrides": {
+                  "category_text": null
+                }
+              }
+            },
+            "x-apidog-orders": [
+              "01HCACE8J4B8WDZTM0V10BQFSM"
+            ],
+            "properties": {
+              "category_id": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 1,
+                "description": "カテゴリーID番号"
+              }
+            },
+            "required": [
+              "category_id"
+            ],
+            "x-apidog-ignore-properties": [
+              "category_id"
+            ]
+          },
+          "event_image": {
+            "type": "string",
+            "description": "イベント画像"
+          },
+          "event_title": {
+            "type": "string",
+            "description": "イベント名"
+          },
+          "event_description": {
+            "type": "string",
+            "description": "イベントの説明"
+          },
+          "max_participants": {
+            "type": "integer",
+            "description": "最大参加人数",
+            "format": "int64"
+          },
+          "venue": {
+            "type": "string",
+            "description": "開催地"
+          },
+          "address": {
+            "type": "string",
+            "description": "住所"
+          },
+          "event_datetime": {
+            "type": "string",
+            "description": "イベントの日程",
+            "format": "date-time"
+          },
+          "is_online": {
+            "type": "boolean",
+            "description": "オンライン/オフライン状態"
+          }
+        },
+        "x-apidog-orders": [
+          "event_id",
+          "user",
+          "language",
+          "tag",
+          "category",
+          "event_image",
+          "event_title",
+          "event_description",
+          "max_participants",
+          "venue",
+          "address",
+          "event_datetime",
+          "is_online"
+        ],
+        "required": [
+          "event_id",
+          "event_image",
+          "event_title",
+          "event_description",
+          "max_participants",
+          "venue",
+          "address",
+          "event_datetime",
+          "is_online",
+          "language",
+          "tag",
+          "category",
+          "user"
+        ],
+        "x-apidog-refs": {},
+        "x-apidog-ignore-properties": [],
+        "x-apidog-folder": "データベーススキーマー"
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "description": "ユーザーid",
+            "format": "int64",
+            "minimum": 1
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+            "description": "user email"
+          },
+          "password_hash": {
+            "type": "string",
+            "format": "password",
+            "description": "user passwordのハッシュ値"
+          },
+          "event_id": {
+            "type": "string",
+            "description": "foreign key"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/UserProfile"
+          }
+        },
+        "x-apidog-orders": [
+          "user_id",
+          "email",
+          "password_hash",
+          "event_id",
+          "profile"
+        ],
+        "required": [
+          "user_id",
+          "email",
+          "password_hash",
+          "profile"
+        ],
+        "x-apidog-refs": {},
+        "x-apidog-ignore-properties": [],
+        "x-apidog-folder": "データベーススキーマー"
+      }
+    }
+  },
+  "servers": []
+}

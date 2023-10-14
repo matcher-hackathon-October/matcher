@@ -1,11 +1,12 @@
 # General
 node_modules/
 *.log
-*.env
+*.env.dev
 
 # Backend (Go)
 backend/bin/
 backend/pkg/
+backend/.env*
 
 # Frontend (Next.js)
 frontend/.next/

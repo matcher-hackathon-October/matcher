@@ -1,34 +1,58 @@
-import EventOverview from "@/components/eventOverview";
-import SearchForm from "@/components/form";
-import { Suspense } from "react";
+"use client";
 
-async function getEventlist() {
-  const res = await fetch("https://mock.apidog.com/m1/392795-0-default/events");
-  if (!res.ok) {
-    throw new Error("Failed to fetch");
-  }
-  const json = await res.json();
-  return json.events;
-}
+import Event from "@/components/Event";
+import apiClient from "@/lib/apiClient";
+import { EventData } from "@/types";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-async function EventsList() {
-  const events = await getEventlist();
+export default function Events() {
+  const [events, setEvents] = useState<EventData[]>([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await apiClient.get("/events");
+        console.log(response.data);
+        setEvents(response.data.events);
+      } catch (error) {
+        alert("イベントの取得に失敗しました。");
+      }
+    };
+    //fetchAPI
+    // fetch("https://mock.apidog.com/m1/392795-0-default/events")
+    //   .then((response) => response.json())
+    //   .then((data) => setEvents(data.events))
+    //   .catch((error) => console.error("Error fetching data: ", error));
+    fetchEvents();
+  }, []);
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between overflow-hidden gap-5">
-      {events.map((data) => (
-        <EventOverview key={data.event_id} {...data} />
-      ))}
-    </div>
-  );
-}
+    <div className="relative">
+      {events.map((event) => {
+        const eventDate = new Date(event.event_datetime);
+        const date = eventDate.toLocaleDateString();
+        const time = eventDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
-export default function EventsPage() {
-  return (
-    <div className="flex flex-col items-center justify-between px-3 pt-3 max-w-screen-md w-full mx-auto">
-      <SearchForm className="w-full z-10 mb-5 sticky top-16" />
-      <Suspense fallback={<div>Loading...</div>}>
-        <EventsList />
-      </Suspense>
+        return (
+          <Event
+            key={event.event_id}
+            id={event.event_id}
+            image={event.event_image}
+            date={date}
+            title={event.event_title}
+            time={time}
+            venue={event.venue}
+            currentParticipants={event.users.length}
+            maxParticipants={event.max_participants}
+          />
+        );
+      })}
+
+      <Link href="/events/new">
+        <PlusCircleIcon className="fixed bottom-32 right-10 h-14 w-14 text-slate-700" />
+      </Link>
     </div>
   );
 }

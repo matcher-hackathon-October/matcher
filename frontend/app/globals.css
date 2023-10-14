@@ -26,6 +26,8 @@ h6 {
 
 p {
   font-size: 0.7rem;
+}
+
 input[type="checkbox"] {
   position: absolute;
   white-space: nowrap;

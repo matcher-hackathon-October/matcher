@@ -1,7 +1,7 @@
 # General
 node_modules/
 *.log
-*.env
+*.env.dev
 
 # Backend (Go)
 backend/bin/

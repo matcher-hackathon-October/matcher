@@ -4,14 +4,14 @@
 
 ```bash
 # データベースのマイグレーション
-$ go run migration_tool.go -migrate
+$ go run -tags tool migration_tool.go -migrate
 # 出力: Migration completed!
 
 # テーブルのドロップ
-$ go run migration_tool.go -drop
+$ go run -tags tool migration_tool.go -drop
 # 出力: Dropped tables!
 
 # データベースのリセット
-$ go run migration.go -reset
+$ go run -tags tool migration.go -reset
 # 出力: Database reset completed!
 ```

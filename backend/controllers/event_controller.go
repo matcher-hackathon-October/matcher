@@ -72,7 +72,7 @@ func UpdateEvent(c *gin.Context) {
     }
 
     // イベント情報を更新
-    event.EventTitle = updatedEvent.EventTitle
+	event.EventTitle = updatedEvent.EventTitle
 	event.EventDescription = updatedEvent.EventDescription
 	event.MaxParticipants = updatedEvent.MaxParticipants
 	event.Venue = updatedEvent.Venue

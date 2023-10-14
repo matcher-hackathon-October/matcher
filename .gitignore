@@ -6,6 +6,7 @@ node_modules/
 # Backend (Go)
 backend/bin/
 backend/pkg/
+backend/.env*
 
 # Frontend (Next.js)
 frontend/.next/

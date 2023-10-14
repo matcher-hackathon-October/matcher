@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"gorm.io/gorm"
-	"github.com/gin-gonic/gin"
+	database "matcher_api/db"
 	"matcher_api/models"
-	"matcher_api/db"
+
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 // すべてのユーザーを取得
@@ -46,8 +47,8 @@ func GetUserAndProfile(c *gin.Context) {
 
 // ユーザーを作成
 type CreateUserInput struct {
-	Email string `json:"email" binding:"required"`
-	Password string `json:"password" binding:"required"`
+	Email                string `json:"email" binding:"required"`
+	Password             string `json:"password" binding:"required"`
 	PasswordConfirmation string `json:"password_confirmation" binding:"required"`
 }
 
@@ -91,8 +92,8 @@ func CreateUser(c *gin.Context) {
 
 // ユーザーを更新
 type UpdateUserInput struct {
-	Email string `json:"email"`
-	Password string `json:"password"`
+	Email                string `json:"email"`
+	Password             string `json:"password"`
 	PasswordConfirmation string `json:"password_confirmation"`
 }
 
@@ -160,13 +161,13 @@ func DeleteUser(c *gin.Context) {
 
 // ユーザーのプロフィールを更新
 type UpdateUserProfileInput struct {
-	name string `json:"name"`
+	name             string `json:"name"`
 	profile_icon_url string `json:"profile_icon_url"`
-	school_name string `json:"school_name"`
-	major string `json:"major"`
-	student_type string `json:"student_type"`
-	year int64 `json:"year"`
-	introduction string `json:"introduction"`
+	school_name      string `json:"school_name"`
+	major            string `json:"major"`
+	student_type     string `json:"student_type"`
+	year             int64  `json:"year"`
+	introduction     string `json:"introduction"`
 }
 
 func UpdateUserProfile(c *gin.Context) {

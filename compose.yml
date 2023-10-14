@@ -9,7 +9,7 @@ services:
     volumes:
       - ./backend:/app
     env_file:
-      - backend/.env.development
+      - .env.dev
     depends_on:
       - db
   frontend:
@@ -27,9 +27,8 @@ services:
     image: "postgres:15-alpine"
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=db
+    env_file:
+      - .env.dev
     volumes:
       - db-store:/var/lib/postgresql/data
 volumes:

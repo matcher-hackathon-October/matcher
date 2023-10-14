@@ -14,9 +14,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        <main className="mt-24 min-h-screen  overflow-y-">{children}</main>
-        <Footer />
+        <div className="h-screen">
+          <Header />
+          <main className="pt-24">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

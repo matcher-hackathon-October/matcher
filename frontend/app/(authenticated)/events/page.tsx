@@ -50,7 +50,7 @@ export default function Events() {
         );
       })}
 
-      <Link href="/post">
+      <Link href="/events/new">
         <PlusCircleIcon className="fixed bottom-32 right-10 h-14 w-14 text-slate-700" />
       </Link>
     </div>

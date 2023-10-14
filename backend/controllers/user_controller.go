@@ -80,7 +80,7 @@ func CreateUser(c *gin.Context) {
 	}
 
 	// ユーザーのProfileIDを更新
-	user.ProfileID = &profile.ID
+	user.ProfileID = profile.ID
 	user.Profile = profile
 	if err := database.DB.Save(&user).Error; err != nil {
 		c.JSON(500, gin.H{"error": err})
@@ -206,22 +206,22 @@ func UpdateUserProfile(c *gin.Context) {
 		profile.Name = input.name
 	}
 	if input.profile_icon_url != "" {
-		profile.ProfileIconURL = &input.profile_icon_url
+		profile.ProfileIconURL = input.profile_icon_url
 	}
 	if input.school_name != "" {
-		profile.SchoolName = &input.school_name
+		profile.SchoolName = input.school_name
 	}
 	if input.major != "" {
-		profile.Major = &input.major
+		profile.Major = input.major
 	}
 	if input.student_type != "" {
-		profile.StudentType = &input.student_type
+		profile.StudentType = input.student_type
 	}
 	if input.year != 0 {
-		profile.Year = &input.year
+		profile.Year = input.year
 	}
 	if input.introduction != "" {
-		profile.IntroduceText = &input.introduction
+		profile.IntroduceText = input.introduction
 	}
 
 	if err := database.DB.Save(&profile).Error; err != nil {

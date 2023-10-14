@@ -1,7 +1,6 @@
 package database
 
 import (
-	"log"
 	"matcher_api/models"
 	"gorm.io/gorm"
 )

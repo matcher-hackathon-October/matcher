@@ -5,6 +5,8 @@ go 1.21.1
 require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.1
+	gorm.io/driver/postgres v1.5.3
+	gorm.io/gorm v1.25.5
 )
 
 require (
@@ -38,6 +40,4 @@ require (
 	golang.org/x/text v0.13.0 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/driver/postgres v1.5.3 // indirect
-	gorm.io/gorm v1.25.5 // indirect
 )

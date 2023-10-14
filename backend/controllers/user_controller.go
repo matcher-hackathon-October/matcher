@@ -20,11 +20,10 @@ func GetAllUsers(c *gin.Context) {
 // ユーザーとプロフィールを取得
 func GetUserAndProfile(c *gin.Context) {
 	var user models.User
-	var profile models.UserProfile
 	userId := c.Param("id")
 
-	// ユーザーの取得
-	if err := database.DB.First(&user, "id = ?", userId).Error; err != nil {
+	// ユーザーとそのプロフィールの取得
+	if err := database.DB.Preload("Profile").First(&user, "id = ?", userId).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			c.JSON(404, gin.H{"error": "User not found"})
 		} else {
@@ -33,17 +32,16 @@ func GetUserAndProfile(c *gin.Context) {
 		return
 	}
 
-	// ユーザーのプロフィール取得
-	if err := database.DB.Where("user_id = ?", user.ID).First(&profile).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			c.JSON(404, gin.H{"error": "Profile not found"})
-		} else {
-			c.JSON(500, gin.H{"error": "Failed to retrieve profile"})
-		}
-		return
+	// ユーザーの情報を整形
+	response := gin.H{
+		"user": gin.H{
+			"ID": user.ID,
+			"Email": user.Email,
+		},
+		"profile": user.Profile,
 	}
 
-	c.JSON(200, gin.H{"user": user, "profile": profile})
+	c.JSON(200, response)
 }
 
 // ユーザーを作成
@@ -72,13 +70,22 @@ func CreateUser(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err})
 		return
 	}
+
 	// ユーザーのプロフィールの初期化
 	profile := models.UserProfile{UserID: user.ID}
-	user.Profile = profile
 	if err := database.DB.Create(&profile).Error; err != nil {
 		c.JSON(500, gin.H{"error": err})
 		return
 	}
+
+	// ユーザーのProfileIDを更新
+	user.ProfileID = &profile.ID
+	user.Profile = profile
+	if err := database.DB.Save(&user).Error; err != nil {
+		c.JSON(500, gin.H{"error": err})
+		return
+	}
+
 	c.JSON(200, gin.H{"user": user})
 }
 

@@ -50,7 +50,7 @@ export default function Events() {
               title={event.event_title}
               time={time}
               venue={event.venue}
-              currentParticipants={event.users.length}
+              currentParticipants={event.users ? event.users.length : 0}
               maxParticipants={event.max_participants}
             />
           );

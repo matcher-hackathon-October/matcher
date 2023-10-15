@@ -37,9 +37,24 @@ export default function SearchBox({ className }: { className?: string }) {
 
     Promise.all([fetchTags, fetchLanguages, fetchCategories]).then(
       ([tags, languages, categories]) => {
-        setTags(tags.data["tags"]);
-        setLanguages(languages.data["languages"]);
-        setCategories(categories.data["categories"]);
+        console.log(tags.data);
+        console.log(languages.data);
+        console.log(categories.data);
+        setTags(
+          tags.data["tags"].map((tag) => ({ id: tag.Id, name: tag.tag_text }))
+        );
+        setLanguages(
+          languages.data["languages"].map((language) => ({
+            id: language.Id,
+            name: language.language_text,
+          }))
+        );
+        setCategories(
+          categories.data["categories"].map((category) => ({
+            id: category.Id,
+            name: category.category_name,
+          }))
+        );
       }
     );
   }, []);

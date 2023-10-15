@@ -15,5 +15,5 @@ func GetAllLanguages(c *gin.Context) {
 		return
 	}
 	// レスポンスをJSONとして返す
-	c.JSON(200, gin.H{"events": languages})
+	c.JSON(200, gin.H{"languages": languages})
 }

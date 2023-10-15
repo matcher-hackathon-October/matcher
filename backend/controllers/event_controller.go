@@ -18,6 +18,34 @@ func GetAllEvents(c *gin.Context) {
 	c.JSON(200, gin.H{"events": events})
 }
 
+// 検索条件によるイベントを取得
+func GetEvents(c *gin.Context){
+	var events []models.Event
+
+	// クエリパラメーターの取得
+	categoryId := c.Query("category_id")
+	languageId := c.Query("language_id")
+	tagId := c.Query("tag_id")
+
+	q := database.DB
+	if categoryId != "" {
+		q = q.Where("category_id = ?", categoryId)
+	}
+	if languageId != "" {
+		q = q.Where("language_id = ?", languageId)
+	}
+	if tagId != "" {
+		q = q.Where("tag_id = ?",tagId )
+	}
+	// クエリを実行して結果を取得
+    if err := q.Find(&events).Error; err != nil {
+        c.JSON(500, gin.H{"error": err.Error()})
+        return
+    }
+
+    c.JSON(200, gin.H{"events": events})
+}
+
 // イベントの詳細を取得
 func GetEventDetails(c *gin.Context) {
 	var event models.Event

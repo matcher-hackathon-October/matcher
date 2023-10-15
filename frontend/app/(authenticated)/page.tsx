@@ -1,16 +1,33 @@
+"use client";
 import Slideshow from "@/components/slideshow/slideshow";
 import { SparklesIcon } from "@heroicons/react/24/outline";
 import Event from "@/components/Event";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { EventData } from "@/types";
+import apiClient from "@/lib/apiClient";
 
 async function EventList() {
-  const res = await fetch("https://mock.apidog.com/m1/392795-0-default/events");
-  const events = await res.json();
-
+  const [events, setEvents] = useState<EventData[]>([]);
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await apiClient.get("/events");
+        console.log(response.data);
+        setEvents(response.data.events);
+      } catch (error) {
+        alert("イベントの取得に失敗しました。");
+      }
+    };
+    //fetchAPI
+    // fetch("https://mock.apidog.com/m1/392795-0-default/events")
+    //   .then((response) => response.json())
+    //   .then((data) => setEvents(data.events))
+    //   .catch((error) => console.error("Error fetching data: ", error));
+    fetchEvents();
+  }, []);
   return (
     <>
-      {events["events"].map((event: EventData) => {
+      {events.map((event: EventData) => {
         const eventDate = new Date(event.event_datetime);
         const date = eventDate.toLocaleDateString();
         const time = eventDate.toLocaleTimeString([], {
@@ -27,7 +44,7 @@ async function EventList() {
             title={event.event_title}
             time={time}
             venue={event.venue}
-            currentParticipants={event.users.length}
+            currentParticipants={event.users ? event.users.length : 0}
             maxParticipants={event.max_participants}
           />
         );

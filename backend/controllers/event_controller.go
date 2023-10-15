@@ -21,24 +21,33 @@ func GetAllEvents(c *gin.Context) {
 */
 
 // 検索条件によるイベントを取得
+// https://example.com/api/events?category_id=1&category_id=2&language_id=3 のようなURLを想定
 func GetEvents(c *gin.Context){
 	var events []models.Event
 
 	// クエリパラメーターの取得
 	categoryId := c.Query("category_id")
-	languageId := c.Query("language_id")
-	tagId := c.Query("tag_id")
+	languageId := c.QueryArray("language_id")
+	tagId := c.QueryArray("tag_id")
 
 	q := database.DB
 	if categoryId != "" {
 		q = q.Where("category_id = ?", categoryId)
 	}
+	for _, v := range languageId {
+		q = q.Where("language_id = ?", v)
+	}
+	for _, v := range tagId {
+		q = q.Where("tag_id = ?", v)
+	}
+	/**
 	if languageId != "" {
 		q = q.Where("language_id = ?", languageId)
 	}
 	if tagId != "" {
 		q = q.Where("tag_id = ?",tagId )
 	}
+	*/
 	// クエリを実行して結果を取得
     if err := q.Find(&events).Error; err != nil {
         c.JSON(500, gin.H{"error": err.Error()})

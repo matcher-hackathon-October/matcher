@@ -8,6 +8,7 @@ import (
 )
 
 // 全てのイベントを取得
+/**
 func GetAllEvents(c *gin.Context) {
 	var events []models.Event
 	if err := database.DB.Find(&events).Error; err != nil {
@@ -17,6 +18,7 @@ func GetAllEvents(c *gin.Context) {
 	// レスポンスをJSONとして返す
 	c.JSON(200, gin.H{"events": events})
 }
+*/
 
 // 検索条件によるイベントを取得
 func GetEvents(c *gin.Context){

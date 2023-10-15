@@ -1,6 +1,7 @@
 "use client";
 
 import Event from "@/components/Event";
+import SearchBox from "@/components/form/searchBox";
 import apiClient from "@/lib/apiClient";
 import { EventData } from "@/types";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
@@ -29,30 +30,36 @@ export default function Events() {
   }, []);
 
   return (
-    <div className="relative">
-      {events.map((event) => {
-        const eventDate = new Date(event.event_datetime);
-        const date = eventDate.toLocaleDateString();
-        const time = eventDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    <>
+      <SearchBox className="fixed z-10 w-full px-5" />
+      <div className="relative py-24">
+        {events.map((event) => {
+          const eventDate = new Date(event.event_datetime);
+          const date = eventDate.toLocaleDateString();
+          const time = eventDate.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
 
-        return (
-          <Event
-            key={event.event_id}
-            id={event.event_id}
-            image={event.event_image}
-            date={date}
-            title={event.event_title}
-            time={time}
-            venue={event.venue}
-            currentParticipants={event.users.length}
-            maxParticipants={event.max_participants}
-          />
-        );
-      })}
+          return (
+            <Event
+              key={event.event_id}
+              id={event.event_id}
+              image={event.event_image}
+              date={date}
+              title={event.event_title}
+              time={time}
+              venue={event.venue}
+              currentParticipants={event.users.length}
+              maxParticipants={event.max_participants}
+            />
+          );
+        })}
 
-      <Link href="/events/new">
-        <PlusCircleIcon className="fixed bottom-32 right-10 h-14 w-14 text-slate-700" />
-      </Link>
-    </div>
+        <Link href="/events/new">
+          <PlusCircleIcon className="fixed bottom-32 right-10 h-14 w-14 text-slate-700" />
+        </Link>
+      </div>
+    </>
   );
 }

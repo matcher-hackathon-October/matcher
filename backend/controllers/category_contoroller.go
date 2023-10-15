@@ -16,7 +16,7 @@ func GetAllCategories(c *gin.Context) {
 		return
 	}
 	// レスポンスをJSONとして返す
-	c.JSON(200, gin.H{"events": categories})
+	c.JSON(200, gin.H{"categories": categories})
 }
 
 // イベントの詳細を取得

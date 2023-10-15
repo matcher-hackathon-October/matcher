@@ -15,7 +15,13 @@ export default function Event({
     <div className="p-4 m-5 flex  justify-center  md:mx-20 border-4 border-cyan-400  rounded-md">
       <div className="mb-0 p-2 mr-10 md:mb-4 md:mr-4">
         <div className="mb-2 p-1 ">{date}</div>
-        <Image src="/next.svg" width={100} height={100} alt="イベント画像" className="" />
+        <Image
+          src="/next.svg"
+          width={100}
+          height={100}
+          alt="イベント画像"
+          className=""
+        />
       </div>
 
       <div>
@@ -37,7 +43,9 @@ export default function Event({
 
           <div className="flex">
             <p>参加人数:</p>
-            <div>20/{maxParticipants}</div>
+            <div>
+              {currentParticipants}/{maxParticipants}
+            </div>
           </div>
         </div>
       </div>

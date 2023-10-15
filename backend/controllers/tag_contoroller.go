@@ -16,7 +16,7 @@ func GetAllTags(c *gin.Context) {
 		return
 	}
 	// レスポンスをJSONとして返す
-	c.JSON(200, gin.H{"events": tags})
+	c.JSON(200, gin.H{"tags": tags})
 }
 
 //　タグの詳細を取得

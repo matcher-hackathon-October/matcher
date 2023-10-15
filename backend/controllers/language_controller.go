@@ -15,8 +15,8 @@ func GetAllLanguages(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
-	// レスポンスをJSONとして返す
-	c.JSON(200, gin.H{"events": languages})
+
+	c.JSON(200, gin.H{"languages": languages})
 }
 
 // 言語の詳細を取得

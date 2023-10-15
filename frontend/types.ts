@@ -1,4 +1,4 @@
-export interface EventProps {
+interface EventProps {
   id: number;
   image: string;
   date: string;
@@ -8,7 +8,7 @@ export interface EventProps {
   currentParticipants: number;
   maxParticipants: number;
 }
-export interface EventData {
+interface EventData {
   event_id: number;
   event_image: string;
   event_datetime: string;
@@ -17,3 +17,34 @@ export interface EventData {
   users: Array<any>;
   max_participants: number;
 }
+
+interface Tags {
+  id: number;
+  name: string;
+}
+
+interface Languages {
+  id: number;
+  name: string;
+}
+
+interface Categories {
+  id: number;
+  name: string;
+}
+
+interface SearchEventProps {
+  free_text: string;
+  tags: Array<number>;
+  languages: Array<number>;
+  categories: Array<number>;
+}
+
+export type {
+  EventProps,
+  EventData,
+  Tags,
+  Languages,
+  Categories,
+  SearchEventProps,
+};

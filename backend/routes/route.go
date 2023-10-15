@@ -34,6 +34,5 @@ func SetupRouter() *gin.Engine {
 	// category
 	r.GET("/categories", controllers.GetAllCategories)
 	r.GET("/categories/:category_id", controllers.GetCategoryDetails)
-
 	return r
 }

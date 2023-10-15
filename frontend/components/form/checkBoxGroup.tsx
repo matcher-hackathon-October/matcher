@@ -22,8 +22,8 @@ function CheckBoxItems({
 }: CheckBoxItemsProps) {
   return (
     <div className="flex flex-wrap gap-2">
-      {items.map((item) => (
-        <label key={item.id} className="flex items-center space-x-2">
+      {items.map((item, index) => (
+        <label key={index} className="flex items-center space-x-2">
           <input
             type="checkbox"
             value={item.id}

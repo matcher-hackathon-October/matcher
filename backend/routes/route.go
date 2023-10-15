@@ -16,21 +16,23 @@ func SetupRouter() *gin.Engine {
 	r.DELETE("/users/:id", controllers.DeleteUser)
 	r.PATCH("/users/:id/profile", controllers.UpdateUserProfile)
 
-	// イベント
-	r.GET("/events", controllers.GetEvents)
-	r.GET("/events/:id", controllers.GetEventDetails)
+	// event
+	r.GET("/events", controllers.CreateEvent)
+	r.GET("/events/:event_id", controllers.GetEventDetails)
 	r.POST("/events", controllers.CreateEvent)
-	r.PUT("/events/:id", controllers.UpdateEvent)
-	r.DELETE("/events/:id", controllers.DeleteEvent)
+	r.PUT("/events/:event_id", controllers.UpdateEvent)
+	r.DELETE("/events/:event_id", controllers.DeleteEvent)
 
-	// カテゴリ
-	r.GET("/categories", controllers.GetAllCategories)
-
-	// 言語
+	// language
 	r.GET("/languages", controllers.GetAllLanguages)
+	r.GET("/languages/:language_id", controllers.GetLanguageDetails)
 
-	// タグ
+	// tag
 	r.GET("/tags", controllers.GetAllTags)
+	r.GET("/tags/:tag_id", controllers.GetTagDetails)
 
+	// category
+	r.GET("/categories", controllers.GetAllCategories)
+	r.GET("/categories/:category_id", controllers.GetCategoryDetails)
 	return r
 }

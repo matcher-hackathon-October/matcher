@@ -60,7 +60,7 @@ func GetEvents(c *gin.Context){
 // イベントの詳細を取得
 func GetEventDetails(c *gin.Context) {
 	var event models.Event
-	eventId := c.Param("id")
+	eventId := c.Param("event_id")
 
 	if err := database.DB.Find(&event, eventId).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -94,7 +94,7 @@ func CreateEvent(c *gin.Context) {
 
 // イベント情報の更新
 func UpdateEvent(c *gin.Context) {
-    eventID := c.Param("id")
+    eventID := c.Param("event_id")
 
 	// イベント情報の取得
     var event models.Event
@@ -133,7 +133,7 @@ func UpdateEvent(c *gin.Context) {
 
 func DeleteEvent(c *gin.Context) {
 	var event models.Event
-	eventId := c.Param("id")
+	eventId := c.Param("event_id")
 
 	if err := database.DB.Find(&event, eventId).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
